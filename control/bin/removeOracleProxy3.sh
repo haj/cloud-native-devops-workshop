@@ -50,6 +50,17 @@ rm -f $ECLIPSE_NETWORK_CONFIG
 echo "Eclipse proxy configuration ($ECLIPSE_NETWORK_CONFIG) has been deleted."
 #=========================================================
 
+DOCKER_HTTPS_CONFIG=/etc/systemd/system/docker.service.d/https-proxy.conf
+sudo rm -f $DOCKER_HTTPS_CONFIG
+
+sudo systemctl daemon-reload
+
+sudo systemctl restart docker
+
+echo "Docker $DOCKER_HTTPS_CONFIG proxy configuration has been deleted."
+
+#=========================================================
+
 echo "Removing Proxy Settings from GIT!"
 
 sudo git config --system --unset http.proxy

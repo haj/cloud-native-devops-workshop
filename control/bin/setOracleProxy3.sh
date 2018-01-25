@@ -68,6 +68,24 @@ echo "org.eclipse.core.net.hasMigrated=true"      >> $ECLIPSE_NETWORK_CONFIG
 
 echo "Eclipse has been configured for proxy using $ECLIPSE_NETWORK_CONFIG"
 #=========================================================
+sudo mkdir -p /etc/systemd/system/docker.service.d
+
+ORACLE_HTTPS_PROXY="https://$ORACLE_PROXY_SERVER:$ORACLE_PROXY_PORT"
+DOCKER_HTTPS_CONFIG=/etc/systemd/system/docker.service.d/https-proxy.conf
+sudo rm -f $DOCKER_HTTPS_CONFIG
+
+echo '[Service]' | sudo tee --append $DOCKER_HTTPS_CONFIG > /dev/null
+echo 'Environment="HTTP_PROXY='"$ORACLE_HTTPS_PROXY/"'"' | sudo tee --append $DOCKER_HTTPS_CONFIG > /dev/null
+
+sudo systemctl daemon-reload
+
+sudo systemctl restart docker
+
+echo "Docker has been configured for proxy using $DOCKER_HTTPS_CONFIG"
+
+systemctl show --property=Environment docker
+
+#=========================================================
 
 # remove escape chars ('\') from proxy URL
 ORACLE_HTTP_PROXY=$(echo $ORACLE_HTTP_PROXY|sed "s@\\\\@@g")
