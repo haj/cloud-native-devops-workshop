@@ -4,9 +4,11 @@ export CONTENT_DIR="/u01/content/cloud-native-devops-workshop"
 export GIT_URL="https://github.com/nagypeter/cloud-native-devops-workshop.git"
 export GIT_BRANCH="master"
 
-sudo $CONTENT_DIR/control/bin/sudoNetwork.sh
+#sudo $CONTENT_DIR/control/bin/sudoNetwork.sh
 
-sleep 3
+#sleep 3
+
+. ~/.bashrc
 
 cd $CONTENT_DIR
 timeout 10 git ls-remote --exit-code -h "$GIT_URL"
