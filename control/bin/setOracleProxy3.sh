@@ -93,7 +93,7 @@ sudo systemctl restart docker
 
 echo "Docker has been configured for proxy:"
 
-systemctl show --property=Environment docker
+systemctl show --property="Environment docker"
 
 #=========================================================
 
