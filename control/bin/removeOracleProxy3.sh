@@ -41,13 +41,15 @@ then
     echo "Proxy has been removed from ~/.bashrc configuration"
 fi
 #=========================================================
-ECLIPSE_NETWORK_CONFIG=~/workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.core.net.prefs
-rm -f $ECLIPSE_NETWORK_CONFIG
+if [ -d "/home/oracle/eclipse" ]; then
+  ECLIPSE_NETWORK_CONFIG=~/workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.core.net.prefs
+  rm -f $ECLIPSE_NETWORK_CONFIG
 
-ECLIPSE_NETWORK_CONFIG=/home/oracle/eclipse/configuration/.settings/org.eclipse.core.net.prefs
-rm -f $ECLIPSE_NETWORK_CONFIG
+  ECLIPSE_NETWORK_CONFIG=/home/oracle/eclipse/configuration/.settings/org.eclipse.core.net.prefs
+  rm -f $ECLIPSE_NETWORK_CONFIG
 
-echo "Eclipse proxy configuration ($ECLIPSE_NETWORK_CONFIG) has been deleted."
+  echo "Eclipse proxy configuration ($ECLIPSE_NETWORK_CONFIG) has been deleted."
+fi
 #=========================================================
 
 DOCKER_HTTPS_CONFIG=/etc/systemd/system/docker.service.d/https-proxy.conf

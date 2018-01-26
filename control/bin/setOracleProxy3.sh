@@ -49,24 +49,26 @@ else
     echo "~/.bashrc now has been configured for proxy."
 fi
 #=========================================================
-ECLIPSE_NETWORK_CONFIG=~/workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.core.net.prefs
-rm -f $ECLIPSE_NETWORK_CONFIG
+if [ -d "/home/oracle/eclipse" ]; then
+  ECLIPSE_NETWORK_CONFIG=~/workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.core.net.prefs
+  rm -f $ECLIPSE_NETWORK_CONFIG
 
-ECLIPSE_NETWORK_CONFIG=/home/oracle/eclipse/configuration/.settings/org.eclipse.core.net.prefs
-rm -f $ECLIPSE_NETWORK_CONFIG
+  ECLIPSE_NETWORK_CONFIG=/home/oracle/eclipse/configuration/.settings/org.eclipse.core.net.prefs
+  rm -f $ECLIPSE_NETWORK_CONFIG
 
-echo "eclipse.preferences.version=1"              > $ECLIPSE_NETWORK_CONFIG
-echo "systemProxiesEnabled=false"                 >> $ECLIPSE_NETWORK_CONFIG
-echo "proxiesEnabled=true"                        >> $ECLIPSE_NETWORK_CONFIG
-echo "proxyData/HTTP/host=$ORACLE_PROXY_SERVER"   >> $ECLIPSE_NETWORK_CONFIG
-echo "proxyData/HTTP/hasAuth=false"               >> $ECLIPSE_NETWORK_CONFIG
-echo "proxyData/HTTP/port=$ORACLE_PROXY_PORT"     >> $ECLIPSE_NETWORK_CONFIG
-echo "proxyData/HTTPS/host=$ORACLE_PROXY_SERVER"  >> $ECLIPSE_NETWORK_CONFIG
-echo "proxyData/HTTPS/hasAuth=false"              >> $ECLIPSE_NETWORK_CONFIG
-echo "proxyData/HTTPS/port=$ORACLE_PROXY_PORT"    >> $ECLIPSE_NETWORK_CONFIG
-echo "org.eclipse.core.net.hasMigrated=true"      >> $ECLIPSE_NETWORK_CONFIG
+  echo "eclipse.preferences.version=1"              > $ECLIPSE_NETWORK_CONFIG
+  echo "systemProxiesEnabled=false"                 >> $ECLIPSE_NETWORK_CONFIG
+  echo "proxiesEnabled=true"                        >> $ECLIPSE_NETWORK_CONFIG
+  echo "proxyData/HTTP/host=$ORACLE_PROXY_SERVER"   >> $ECLIPSE_NETWORK_CONFIG
+  echo "proxyData/HTTP/hasAuth=false"               >> $ECLIPSE_NETWORK_CONFIG
+  echo "proxyData/HTTP/port=$ORACLE_PROXY_PORT"     >> $ECLIPSE_NETWORK_CONFIG
+  echo "proxyData/HTTPS/host=$ORACLE_PROXY_SERVER"  >> $ECLIPSE_NETWORK_CONFIG
+  echo "proxyData/HTTPS/hasAuth=false"              >> $ECLIPSE_NETWORK_CONFIG
+  echo "proxyData/HTTPS/port=$ORACLE_PROXY_PORT"    >> $ECLIPSE_NETWORK_CONFIG
+  echo "org.eclipse.core.net.hasMigrated=true"      >> $ECLIPSE_NETWORK_CONFIG
 
-echo "Eclipse has been configured for proxy using $ECLIPSE_NETWORK_CONFIG"
+  echo "Eclipse has been configured for proxy using $ECLIPSE_NETWORK_CONFIG"
+fi
 #=========================================================
 sudo mkdir -p /etc/systemd/system/docker.service.d
 
