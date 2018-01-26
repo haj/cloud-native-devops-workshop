@@ -3,6 +3,7 @@
 ORACLE_PROXY_SERVER="www-proxy.us.oracle.com"
 ORACLE_PROXY_PORT="80"
 ORACLE_HTTP_PROXY="http:\/\/$ORACLE_PROXY_SERVER:$ORACLE_PROXY_PORT"
+ORACLE_HTTPS_PROXY="https://$ORACLE_PROXY_SERVER:$ORACLE_PROXY_PORT"
 
 #=========================================================
 MAVENCONF_FILE=~/.m2/settings.xml
@@ -72,31 +73,35 @@ fi
 #=========================================================
 sudo mkdir -p /etc/systemd/system/docker.service.d
 
-ORACLE_HTTPS_PROXY="https://$ORACLE_PROXY_SERVER:$ORACLE_PROXY_PORT"
 DOCKER_HTTPS_CONFIG=/etc/systemd/system/docker.service.d/https-proxy.conf
+DOCKER_HTTP_CONFIG=/etc/systemd/system/docker.service.d/http-proxy.conf
 sudo rm -f $DOCKER_HTTPS_CONFIG
+sudo rm -f $DOCKER_HTTP_CONFIG
 
 echo '[Service]' | sudo tee --append $DOCKER_HTTPS_CONFIG > /dev/null
-echo 'Environment="HTTP_PROXY='"$ORACLE_HTTPS_PROXY/"'"' | sudo tee --append $DOCKER_HTTPS_CONFIG > /dev/null
+echo 'Environment="HTTPS_PROXY='"$ORACLE_HTTPS_PROXY/"'"' | sudo tee --append $DOCKER_HTTPS_CONFIG > /dev/null
+
+# remove escape chars ('\') from proxy URL
+ORACLE_HTTP_PROXY=$(echo $ORACLE_HTTP_PROXY|sed "s@\\\\@@g")
+
+echo '[Service]' | sudo tee --append $DOCKER_HTTP_CONFIG > /dev/null
+echo 'Environment="HTTP_PROXY='"$ORACLE_HTTP_PROXY/"'"' | sudo tee --append $DOCKER_HTTP_CONFIG > /dev/null
 
 sudo systemctl daemon-reload
 
 sudo systemctl restart docker
 
-echo "Docker has been configured for proxy using $DOCKER_HTTPS_CONFIG"
+echo "Docker has been configured for proxy:"
 
 systemctl show --property=Environment docker
 
 #=========================================================
 
-# remove escape chars ('\') from proxy URL
-ORACLE_HTTP_PROXY=$(echo $ORACLE_HTTP_PROXY|sed "s@\\\\@@g")
-
 sudo git config --system http.proxy ${ORACLE_HTTP_PROXY}
 sudo git config --global http.proxy ${ORACLE_HTTP_PROXY}
 
 export http_proxy=$ORACLE_HTTP_PROXY
-export https_proxy=$ORACLE_HTTP_PROXY
+export https_proxy=$ORACLE_HTTPS_PROXY
 
 echo "http_proxy set to: [${http_proxy}]"
 echo "https_proxy set to: [${https_proxy}]"

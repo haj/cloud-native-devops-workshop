@@ -53,13 +53,15 @@ fi
 #=========================================================
 
 DOCKER_HTTPS_CONFIG=/etc/systemd/system/docker.service.d/https-proxy.conf
+DOCKER_HTTP_CONFIG=/etc/systemd/system/docker.service.d/https-proxy.conf
 sudo rm -f $DOCKER_HTTPS_CONFIG
+sudo rm -f $DOCKER_HTTP_CONFIG
 
 sudo systemctl daemon-reload
 
 sudo systemctl restart docker
 
-echo "Docker $DOCKER_HTTPS_CONFIG proxy configuration has been deleted."
+echo "Docker $DOCKER_HTTPS_CONFIG and $DOCKER_HTTP_CONFIG proxy configuration has been deleted."
 
 #=========================================================
 
