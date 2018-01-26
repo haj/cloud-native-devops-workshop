@@ -1,7 +1,8 @@
 #!/bin/sh
 
-ORACLE_HTTP_PROXY="http:\/\/www-proxy.us.oracle.com:80"
-ORACLE_HTTPS_PROXY="https://$ORACLE_PROXY_SERVER:$ORACLE_PROXY_PORT"
+ORACLE_PROXY_SERVER="www-proxy.us.oracle.com:80"
+ORACLE_HTTP_PROXY="http:\/\/$ORACLE_PROXY_SERVER"
+ORACLE_HTTPS_PROXY="https:\/\/$ORACLE_PROXY_SERVER"
 
 #=========================================================
 MAVENCONF_FILE=~/.m2/settings.xml
@@ -37,8 +38,8 @@ grepresult=$(grep -c "export http_proxy=$ORACLE_HTTP_PROXY" $BASHRC_FILE -s)
 if [ $grepresult == 1 ]
 then
     # ~/.bashrc configured for proxy, need to delete
-    sudo sed -i "/export http_proxy=$ORACLE_HTTP_PROXY/ d" $BASHRC_FILE
-    sudo sed -i "/export https_proxy=$ORACLE_HTTPS_PROXY/ d" $BASHRC_FILE
+    sudo sed -i 's/export http_proxy='$ORACLE_HTTP_PROXY'/unset http_proxy/g' $BASHRC_FILE
+    sudo sed -i 's/export https_proxy='$ORACLE_HTTPS_PROXY'/unset https_proxy/g' $BASHRC_FILE
     echo "Proxy has been removed from ~/.bashrc configuration"
 fi
 #=========================================================
