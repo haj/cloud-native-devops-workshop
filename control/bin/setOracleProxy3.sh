@@ -46,7 +46,7 @@ then
 else
     # bashrc not configured for proxy, need to add
     sed -i '$ a\'"export http_proxy=$ORACLE_HTTP_PROXY"'' $BASHRC_FILE
-    sed -i '$ a\'"export https_proxy=$ORACLE_HTTP_PROXY"'' $BASHRC_FILE
+    sed -i '$ a\'"export https_proxy=$ORACLE_HTTPS_PROXY"'' $BASHRC_FILE
     echo "~/.bashrc now has been configured for proxy."
 fi
 #=========================================================
