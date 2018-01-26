@@ -75,6 +75,12 @@ sudo git config --global --unset http.proxy
 unset http_proxy
 unset https_proxy
 
+gsettings reset org.gnome.system.proxy.http host
+gsettings reset org.gnome.system.proxy.http port
+gsettings reset org.gnome.system.proxy.https host
+gsettings reset org.gnome.system.proxy.https port
+gsettings set org.gnome.system.proxy mode 'none'
+
 echo "Proxy NOT SET for Oracle Network!!!"
 
 echo "This window will close automatically/or continue running in 3s..."
