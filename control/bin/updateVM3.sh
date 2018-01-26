@@ -9,10 +9,10 @@ sudo rm -f /etc/profile.d/setproxy.sh
 GIT_SYSTEM_PROXY_CHECK=`git config --get --system http.proxy`
 if [ -n "$GIT_SYSTEM_PROXY_CHECK" ]; then
   echo "Reset proxy settings for Oracle network"
-  . ${CONTENT_DIR}/control/bin/setOracleProxy.sh
+  . ${CONTENT_DIR}/control/bin/setOracleProxy3.sh
 else
   echo "Reset proxy settings for Non-Oracle network"
-  . ${CONTENT_DIR}/control/bin/removeOracleProxy.sh
+  . ${CONTENT_DIR}/control/bin/removeOracleProxy3.sh
   unset http_proxy
   unset https_proxy
 fi
