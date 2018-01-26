@@ -37,7 +37,7 @@ if [ $grepresult == 1 ]
 then
     # ~/.bashrc configured for proxy, need to delete
     sudo sed -i "/export http_proxy=$ORACLE_HTTP_PROXY/ d" $BASHRC_FILE
-    sudo sed -i "/export https_proxy=$ORACLE_HTTP_PROXY/ d" $BASHRC_FILE
+    sudo sed -i "/export https_proxy=$ORACLE_HTTPS_PROXY/ d" $BASHRC_FILE
     echo "Proxy has been removed from ~/.bashrc configuration"
 fi
 #=========================================================
