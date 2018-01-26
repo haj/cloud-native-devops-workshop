@@ -1,6 +1,7 @@
 #!/bin/sh
 
 ORACLE_HTTP_PROXY="http:\/\/www-proxy.us.oracle.com:80"
+ORACLE_HTTPS_PROXY="https://$ORACLE_PROXY_SERVER:$ORACLE_PROXY_PORT"
 
 #=========================================================
 MAVENCONF_FILE=~/.m2/settings.xml
@@ -53,7 +54,7 @@ fi
 #=========================================================
 
 DOCKER_HTTPS_CONFIG=/etc/systemd/system/docker.service.d/https-proxy.conf
-DOCKER_HTTP_CONFIG=/etc/systemd/system/docker.service.d/https-proxy.conf
+DOCKER_HTTP_CONFIG=/etc/systemd/system/docker.service.d/http-proxy.conf
 sudo rm -f $DOCKER_HTTPS_CONFIG
 sudo rm -f $DOCKER_HTTP_CONFIG
 
