@@ -1,11 +1,4 @@
 
-Linux root   password	:	oracle
-Database all passwords	:	welcome1
-Middleware   passwords	:	welcome1
-
-Database Information:
-Oracle database SID	: 	orcl
-
 *** Please note 
 1) Ensure you have the latest Cloud Native DevOps Workshop code by running the "Update CaNDo Workshop" command on the desktop!
 2) Ensure you have configured the proxy for the Oracle network if you are on the Oracle Network or VPN!

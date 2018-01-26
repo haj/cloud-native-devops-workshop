@@ -15,10 +15,6 @@ export SW_BASE="/u01"
 export USER_BASE="/u01"
 
 ##################################################################
-# Oracle Express Edition env variables
-. /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.sh
-
-##################################################################
 
 export DEMOS_HOME="/u01/content/cloud-native-devops-workshop"
 
@@ -46,5 +42,15 @@ fi
 JAVA_VERSION=`java -version 2>&1 |awk 'NR==1{ gsub(/"/,""); print $3 }'`
 echo "Default Java: $JAVA_VERSION"
 
-cat ${DEMOS_HOME}/control/files/bashdisplay3.txt
+echo "Linux root   password : oracle"
 
+if [ -d "/u01/app/oracle/product/11.2.0" ]; then
+  # Oracle Express Edition env variables
+  . /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.sh
+
+  echo "Database Information:"
+  echo "Database all passwords  : welcome1"
+  echo "Oracle database SID :   orcl"
+fi
+
+cat ${DEMOS_HOME}/control/files/bashdisplay3.txt
