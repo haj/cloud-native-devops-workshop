@@ -48,6 +48,16 @@ EOF
 fi
 echo "========================================"
 
+# first try to delete the rule
+sudo iptables -D INPUT -i docker0 -j ACCEPT
+
+#then add the rule necessary for docker to communicate with the host
+sudo iptables -I INPUT -i docker0 -j ACCEPT
+
+echo "iptables configured."
+
+echo "========================================"
+
 echo "Clean and disable yum cache/PackageKit..."
 
 sudo rm -f /var/run/yum.pid
